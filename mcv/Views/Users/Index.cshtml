@@ -1,0 +1,48 @@
+﻿@model List<mcv.Models.TableViewModel.UserTableModel>
+@{ViewBag.Title = "Lista de usuario";}
+
+<h2 class="text-center">Lista de usuarios</h2>
+
+<div class="container">
+    <input type="button" class="btn btn-success mrg-b" value="Crear Usuario" onclick="document.location.href = '@Url.Content("~/Users/Add")'"/>
+    <br>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var elemento in Model)
+            {
+            <tr>
+                <td>@elemento.id</td>
+                <td>@elemento.correo</td>
+                <td>
+                    <input type="button" value="Eliminar" class="btn btn-danger" onclick="jsDelete(@elemento.id)"/>
+                    <input type="button" value="Editar" class="btn btn-warning" onclick="document.location.href = '@Url.Content("~/Users/Edit/"+elemento.id)'" />
+                </td>
+            </tr>               
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function jsDelete(id) {
+        if (confirm("¿Estás seguro que deseas borrar este usuario?")){
+            url = "@Url.Content("~/users/Delete")" + "/" + id;
+            $.post(url, function (data){
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/users/")"
+                } else {
+                    alert("Ocurrió un error :(")
+                }
+            })
+
+        }
+
+    }
+</script>
+

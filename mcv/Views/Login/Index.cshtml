@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+<br />
+<br />
+
+<div class="container mt-4">
+    <form class="container contenedorLogin" id="frm">
+        <h2 class="text-center">
+            <div class="myicono"><i class="far fa-user"></i></div>
+            Login
+        </h2>
+        <div>
+            <label for="user">Usuario</label>
+            <input type="text" name="user" class="form-control" id="user" placeholder="Ingrese usuario" />
+        </div>
+        <br /><br />
+        <div>
+            <label for="user">Contraseña</label>
+            <input type="password" name="pass" class="form-control" id="pass" placeholder="Ingrese la contraseña" />
+        </div>
+        <br /><br />
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Ingresar</button>
+        </div>
+    </form>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#frm").submit((e) => {
+                e.preventDefault();
+                url = "@Url.Content("~/Login/Enter")"
+                parametros = $("#frm").serialize()
+            $.post(url, parametros, (data) => {
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/Home")"
+                } else {
+                    alert(data)
+                }
+            })
+        })
+    })
+    </script>
+}
+
+
